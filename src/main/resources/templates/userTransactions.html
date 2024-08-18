@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>User Transactions</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h1 class="my-4">Your Transactions</h1>
+
+    <table class="table table-striped mt-3">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Sender Account ID</th>
+            <th>Beneficiary Account ID</th>
+            <th>Amount</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="transaction : ${transactions}">
+            <td th:text="${transaction.id}"></td>
+            <td th:text="${transaction.senderAccountId}"></td>
+            <td th:text="${transaction.beneficiaryAccountId}"></td>
+            <td th:text="${transaction.amount}"></td>
+        </tr>
+        </tbody>
+    </table>
+
+    <a th:href="@{/user/userMenu}" class="btn btn-secondary">Back to Dashboard</a>
+</div>
+</body>
+</html>

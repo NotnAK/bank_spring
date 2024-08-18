@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>User Dashboard</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h1 class="my-4">Welcome, <span th:text="${user.name}"></span>!</h1>
+
+    <h3>Your Accounts</h3>
+    <table class="table table-striped mt-3">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Currency</th>
+            <th>Balance</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="account : ${accounts}">
+            <td th:text="${account.id}"></td>
+            <td th:text="${account.currency}"></td>
+            <td th:text="${account.balance}"></td>
+        </tr>
+        </tbody>
+    </table>
+    <p>
+        <a class="btn btn-primary" data-toggle="collapse" href="#addAccountForm" role="button" aria-expanded="false" aria-controls="addAccountForm">
+            Add New Account
+        </a>
+    </p>
+
+    <!-- Форма для добавления аккаунта внутри шторки -->
+    <div class="collapse" id="addAccountForm">
+        <div class="card card-body">
+            <form th:action="@{/user/addAccount}" method="post">
+                <div class="form-group">
+                    <label for="currency">Select Currency</label>
+                    <select id="currency" name="currency" class="form-control" required>
+                        <option th:each="currency : ${currencies}" th:value="${currency}" th:text="${currency}"></option>
+                    </select>
+                </div>
+                <button type="submit" class="btn btn-success">Add Account</button>
+            </form>
+        </div>
+    </div>
+    <div class="mt-4">
+        <a th:href="@{/user/transactions}" class="btn btn-primary btn-block">View Transactions</a>
+        <a th:href="@{/user/deposit}" class="btn btn-success btn-block mt-2">Deposit Funds</a>
+        <a th:href="@{/user/transfer}" class="btn btn-warning btn-block mt-2">Transfer Funds</a>
+        <a th:href="@{/user/convert}" class="btn btn-info btn-block mt-2">Convert Currency</a>
+    </div>
+    <a th:href="@{/logout}" class="btn btn-danger mt-3">Logout</a>
+</div>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>

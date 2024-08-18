@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Transfer Funds</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h1 class="my-4">Transfer Funds</h1>
+
+
+    <div th:if="${errorMessage}" class="alert alert-danger" role="alert">
+        <span th:text="${errorMessage}"></span>
+    </div>
+
+
+
+    <form th:action="@{/user/transfer}" method="post">
+        <div class="form-group">
+            <label for="sourceAccountId">Source Account</label>
+            <select id="sourceAccountId" name="sourceAccountId" class="form-control" required>
+                <option th:each="account : ${accounts}" th:value="${account.id}" th:text="${account.id + ' - ' + account.currency}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="destinationAccountId">Destination Account</label>
+            <input type="number" id="destinationAccountId" name="destinationAccountId" class="form-control" placeholder="Enter destination account ID" required>
+        </div>
+        <div class="form-group">
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" name="amount" class="form-control" step="0.01" required>
+        </div>
+        <button type="submit" class="btn btn-primary">Transfer</button>
+    </form>
+
+    <a th:href="@{/user/userMenu}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+</div>
+</body>
+</html>

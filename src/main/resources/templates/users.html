@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users</title>
+    <!-- Подключение Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h1 class="my-4">Users</h1>
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>ID</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Accounts</th>
+            <th>Role</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td th:text="${user.id}"></td>
+            <td th:text="${user.name}"></td>
+            <td th:text="${user.address}"></td>
+
+            <td>
+                <ul>
+                    <li th:each="account : ${user.accounts}" th:text="${account.currency + ': ' + account.balance}"></li>
+                </ul>
+            </td>
+            <td th:text="${user.role}"></td>
+            <td>
+
+                <div th:if="${user.role.toString() != 'ROLE_ADMIN'}">
+                    <form th:action="@{/admin/deleteUser/{id}(id=${user.id})}" method="post" style="display:inline;">
+                        <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                    </form>
+                </div>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+<!--    <a href="/user/accounts" class="btn btn-primary">View Accounts</a>-->
+    <a th:href="@{/admin/adminMenu}" class="btn btn-secondary">Back to Admin Menu</a>
+</div>
+</body>
+</html>

@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Deposit Funds</title>
+    <!-- Bootstrap CSS -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container">
+    <h1 class="my-4">Deposit Funds</h1>
+
+    <form th:action="@{/user/deposit}" method="post">
+        <div class="form-group">
+            <label for="accountId">Select Account</label>
+            <select id="accountId" name="accountId" class="form-control" required>
+                <option th:each="account : ${accounts}" th:value="${account.id}" th:text="${account.id + ' - ' + account.currency}"></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="amount">Amount</label>
+            <input type="number" id="amount" name="amount" class="form-control" step="0.01" required>
+        </div>
+        <button type="submit" class="btn btn-success">Deposit</button>
+    </form>
+
+    <a th:href="@{/user/userMenu}" class="btn btn-secondary mt-3">Back to Dashboard</a>
+</div>
+</body>
+</html>
+
